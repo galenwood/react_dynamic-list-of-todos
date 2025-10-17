@@ -1,26 +1,26 @@
 interface Props {
   query: string;
   select: string;
-  selectOptions?: (value: string) => void;
-  filterQuery?: (value: string) => void;
+  onStatusChange?: (value: string) => void;
+  onQueryChange?: (value: string) => void;
 }
 
 export const TodoFilter: React.FC<Props> = ({
   query,
   select,
-  filterQuery = () => {},
-  selectOptions = () => {},
+  onQueryChange = () => {},
+  onStatusChange = () => {},
 }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    filterQuery(e.target.value);
+    onQueryChange(e.target.value);
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    selectOptions(e.target.value);
+    onStatusChange(e.target.value);
   };
 
   const reset = () => {
-    filterQuery('');
+    onQueryChange('');
   };
 
   return (

@@ -6,14 +6,14 @@ import classNames from 'classnames';
 
 interface Props {
   todos: Todo[];
-  onSelectedTodo?: (value: Todo) => void;
-  selectedTodo: Todo | null;
+  onSelectTodo?: (value: Todo) => void;
+  selectTodo: Todo | null;
 }
 
 export const TodoList: React.FC<Props> = ({
   todos,
-  onSelectedTodo = () => {},
-  selectedTodo,
+  onSelectTodo = () => {},
+  selectTodo,
 }) => {
   return (
     <table className="table is-narrow is-fullwidth">
@@ -35,7 +35,7 @@ export const TodoList: React.FC<Props> = ({
           <tr
             data-cy="todo"
             className={classNames({
-              'has-background-info-light': selectedTodo?.id === todo.id,
+              'has-background-info-light': selectTodo?.id === todo.id,
             })}
           >
             <td className="is-vcentered">{todo.id}</td>
@@ -62,14 +62,14 @@ export const TodoList: React.FC<Props> = ({
                 className="button"
                 type="button"
                 onClick={() => {
-                  onSelectedTodo(todo);
+                  onSelectTodo(todo);
                 }}
               >
                 <span className="icon">
                   <i
                     className={classNames(
                       'far',
-                      selectedTodo?.id === todo.id ? 'fa-eye-slash' : 'fa-eye',
+                      selectTodo?.id === todo.id ? 'fa-eye-slash' : 'fa-eye',
                     )}
                   />
                 </span>

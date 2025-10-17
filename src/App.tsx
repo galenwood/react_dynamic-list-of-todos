@@ -11,22 +11,22 @@ import { Loader } from './components/Loader';
 import { getTodos } from './api';
 
 export const App: React.FC = () => {
-  const [todo, setTodo] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectOption, setSelectOption] = useState('all');
   const [query, setQuery] = useState('');
-  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
+  const [selectTodo, setselectTodo] = useState<Todo | null>(null);
 
   useEffect(() => {
     getTodos()
-      .then(todos => {
-        setTodo(todos);
+      .then(todo => {
+        setTodos(todo);
       })
       .finally(() => setLoading(false));
   }, []);
 
   const filteredTodos = useMemo(() => {
-    let todosList = [...todo];
+    let todosList = [...todos];
 
     if (selectOption === 'active') {
       todosList = todosList.filter(t => !t.completed);
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
     return todosList.filter(t =>
       t.title.toLowerCase().includes(query.toLowerCase()),
     );
-  }, [todo, selectOption, query]);
+  }, [todos, selectOption, query]);
 
   return (
     <>
@@ -49,9 +49,9 @@ export const App: React.FC = () => {
             <div className="block">
               <TodoFilter
                 query={query}
-                filterQuery={setQuery}
+                onQueryChange={setQuery}
                 select={selectOption}
-                selectOptions={setSelectOption}
+                onStatusChange={setSelectOption}
               />
             </div>
 
@@ -61,18 +61,18 @@ export const App: React.FC = () => {
               ) : (
                 <TodoList
                   todos={filteredTodos}
-                  onSelectedTodo={setSelectedTodo}
-                  selectedTodo={selectedTodo}
+                  onSelectTodo={setselectTodo}
+                  selectTodo={selectTodo}
                 />
               )}
             </div>
           </div>
         </div>
       </div>
-      {selectedTodo && (
+      {selectTodo && (
         <TodoModal
-          selectTodo={selectedTodo}
-          onSelectTodo={() => setSelectedTodo(null)}
+          selectTodo={selectTodo}
+          onSelectTodo={() => setselectTodo(null)}
         />
       )}
     </>
