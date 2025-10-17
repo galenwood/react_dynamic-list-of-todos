@@ -15,7 +15,7 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectOption, setSelectOption] = useState('all');
   const [query, setQuery] = useState('');
-  const [selectTodo, setselectTodo] = useState<Todo | null>(null);
+  const [selectTodo, setSelectTodo] = useState<Todo | null>(null);
 
   useEffect(() => {
     getTodos()
@@ -61,7 +61,7 @@ export const App: React.FC = () => {
               ) : (
                 <TodoList
                   todos={filteredTodos}
-                  onSelectTodo={setselectTodo}
+                  onSelectTodo={setSelectTodo}
                   selectTodo={selectTodo}
                 />
               )}
@@ -72,7 +72,7 @@ export const App: React.FC = () => {
       {selectTodo && (
         <TodoModal
           selectTodo={selectTodo}
-          onSelectTodo={() => setselectTodo(null)}
+          onSelectTodo={() => setSelectTodo(null)}
         />
       )}
     </>

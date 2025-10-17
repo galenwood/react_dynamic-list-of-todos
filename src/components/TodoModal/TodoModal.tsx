@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Todo } from '../../types/Todo';
 import { User } from '../../types/User';
 import { getUser } from '../../api';
@@ -15,7 +16,7 @@ export const TodoModal: React.FC<Props> = ({
   onSelectTodo = () => {},
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleCloseIcon = () => {
     onSelectTodo(null);

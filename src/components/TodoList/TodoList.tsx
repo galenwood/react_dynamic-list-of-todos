@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 interface Props {
   todos: Todo[];
-  onSelectTodo?: (value: Todo) => void;
+  onSelectTodo?: (value: Todo | null) => void;
   selectTodo: Todo | null;
 }
 
